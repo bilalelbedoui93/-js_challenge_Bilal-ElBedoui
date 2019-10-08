@@ -1,0 +1,10 @@
+*.zip
+*.log
+
+.vscode
+.DS_Store
+
+coverage
+dist
+node_modules
+package-log.json
