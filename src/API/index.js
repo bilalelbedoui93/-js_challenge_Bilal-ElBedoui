@@ -8,7 +8,7 @@ const api = {
 
         return (async () => {
             try {
-                debugger
+                
                 const response = await call(`${this.__url__}`, {
                     method: 'GET',
                     headers: {
@@ -18,7 +18,7 @@ const api = {
                         'x-musement-currency': 'EUR'
                     },
                 })
-                debugger
+                
                 return response.data
 
 

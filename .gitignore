@@ -7,4 +7,4 @@
 coverage
 dist
 node_modules
-package-log.json
+package-lock.json

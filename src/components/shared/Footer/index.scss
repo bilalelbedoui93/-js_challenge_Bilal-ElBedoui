@@ -1,0 +1,16 @@
+footer {
+    height: 60px;
+    
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    
+    text-transform: uppercase;
+    background-color: #ffffff;
+}
+.container {
+    width: 100%;
+    max-width: 1240px;
+    padding: 0 40px;
+    margin: 0 auto;
+}

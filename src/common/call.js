@@ -8,7 +8,7 @@ export default function call(url, options) {
 
         return (async () => {
             try {
-				debugger
+				
                 const result = await axios({
                     url,
                     method,

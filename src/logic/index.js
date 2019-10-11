@@ -3,7 +3,7 @@ import api from '../API'
 const logic = {
 
     retrieveAllProducts(){
-        debugger
+        
         return (async () => {
             try {
                 const response = await api.retrieveAllEntries()
