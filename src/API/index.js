@@ -2,7 +2,7 @@ import call from '../common/call'
 
 const api = {
 
-    __url__: 'https://api.musement.com/api/v3/venues/164/activities?limit=6&offset=0',
+    __url__: 'https://api.musement.com/api/v3/venues/164/activities',
 
     retrieveAllEntries (){
 
