@@ -1,13 +1,72 @@
 import React, { useState, useEffect } from 'react'
+
 import Pagination from '../../shared/Pagination'
 
+import logic from '../../../logic'
 import './index.scss'
 
-const Home = ({ products, loading, postsPerPage, totalPosts, paginate, currentPage }) => {
+const Home = ({ products, loading, postsPerPage, totalPosts, paginate, currentPage, funTotalPrice, funNumberItems }) => {
+
+
+    const [initialStateButAddToBag, setInitialStateButAddToBag] = useState(
+        <button className="product__add-to-cart button button--primary" onClick={(event) => {
+            event.preventDefault()
+            handleToBag(item.uuid)
+        }}>
+            Add to Cart
+        </button>
+    )
+
+    const [buttonRemoveFromBag, setButtonRemoveFromBag] = useState(
+        <button className="product__add-to-cart button button--secondary" onClick={(event) => {
+            event.preventDefault()
+            handleRemoveFromBag(item.uuid)
+        }}>
+            Remove from Cart
+        </button>
+    )
 
     if (loading) return <h2>Loading...</h2>
 
+    const handleToBag = (item) => {
 
+        const { message, suma, numberItems } = logic.addToCart(item)
+
+        console.log('message', message)
+        console.log('suma', suma)
+        console.log('numberItems', numberItems)
+
+        if (message === 'added to card') {
+            setInitialStateButAddToBag(
+                <button className="product__add-to-cart button button--secondary" onClick={(event) => {
+                    event.preventDefault()
+                    handleRemoveFromBag(item.uuid)
+                }}>
+                    Remove from Cart
+                </button>
+            )
+        }
+        funTotalPrice(suma)
+        funNumberItems(numberItems)
+    }
+
+    const handleRemoveFromBag = (id) => {
+        const { message, suma, numberItems } = logic.removeFromCard(id)
+        if (message === 'removed from card') {
+            setButtonRemoveFromBag(
+                <button className="product__add-to-cart button button--primary" onClick={(event) => {
+                    event.preventDefault()
+                    handleToBag(item.uuid)
+                }}>
+                    Add to Cart
+                </button>
+            )
+        }
+        funTotalPrice(suma)
+        funNumberItems(numberItems)
+    }
+
+    const productsInBag = JSON.parse(localStorage.getItem('bag'))
 
     return (
 
@@ -16,6 +75,9 @@ const Home = ({ products, loading, postsPerPage, totalPosts, paginate, currentPa
                 <ul className="product-list">
                     {products && products.map(function (item) {
 
+                        let isInBag = false
+                        if (Array.isArray(productsInBag)) isInBag = productsInBag.some(inBag => inBag.uuid === item.uuid)
+                        console.log('isInBag ==>', isInBag)
                         return (
 
                             <li key={item.uuid} className="product-list__item">
@@ -36,10 +98,25 @@ const Home = ({ products, loading, postsPerPage, totalPosts, paginate, currentPa
                                             {item.discount > 0 ?
                                                 <div><span class="product__price--strike">{item.original_retail_price.formatted_value}</span> <span class="product__price--discounted" itemProp="price">{item.retail_price.formatted_value}</span></div>
                                                 :
-                                                <span className="product__price" itemProp="price">{item.retail_price.formatted_value}</span>
+                                                <span className="product__price" itemProp="price">{item.original_retail_price.formatted_value}</span>
                                             }
                                         </div>
-                                        <button className="product__add-to-cart button button--primary">Add to Cart</button>
+                                        {
+                                            isInBag ?
+                                                <button className="product__add-to-cart button button--secondary" onClick={(event) => {
+                                                    event.preventDefault()
+                                                    handleRemoveFromBag(item.uuid)
+                                                }}>
+                                                    Remove from Cart
+                                                </button>
+                                                :
+                                                <button className="product__add-to-cart button button--primary" onClick={(event) => {
+                                                    event.preventDefault()
+                                                    handleToBag(item)
+                                                }}>
+                                                    Add to Cart
+                                                </button>
+                                        }
                                     </div>
                                 </article>
                             </li>
@@ -55,10 +132,7 @@ const Home = ({ products, loading, postsPerPage, totalPosts, paginate, currentPa
                 />
 
             </div >
-        </main>
-
+        </main >
     )
-
-
 }
 export default Home;

@@ -2,7 +2,7 @@
    Header
    ========================================================================== */
 
-   .header {
+.header {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -10,11 +10,17 @@
     background-color: #ffffff;
     height: 60px;
     align-items: center;
-
 }
 
+/*
 .page-title {
     font-size: 20px;
+}
+*/
+
+.page-image {
+    width: 60px;
+    height: 60px;
 }
 
 .container {
@@ -44,6 +50,7 @@
 .header-bag__item .icon {
     height: auto;
     fill: #444A59;
+    cursor: pointer;
 }
 
 .header-bag__price {

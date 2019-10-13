@@ -1,0 +1,84 @@
+/* ==========================================================================
+   Main Styles
+   ========================================================================== */
+.bag__container {
+    width: 100%;
+    max-width: 1240px;
+    padding: 0 40px;
+    margin: 0 auto;
+    background-color: #ffffff;
+    font-family: 'Lato-Bold', sans-serif;
+    text-transform: uppercase;
+}
+
+.bag__item {
+    max-width: 1240px;
+    height: 100px;
+}
+
+.bag__product {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    margin-left: 5%;
+    margin-top: 20px;
+}
+
+.bag__information {
+    display: block;
+    margin-right: 20px;
+    margin-left: 5%;
+    max-width: 30%;
+}
+
+.bag__title {
+    padding-bottom: 10px;
+    font-family: 'Lato-Bold', sans-serif;
+    font-size: 9px;
+    letter-spacing: 1.37px;
+    text-transform: uppercase;
+}
+
+.bag__image {
+    width: 60px;
+    height: 60px;
+}
+
+.bag__removeItem {
+    width: 20px;
+    height: 20px;
+}
+
+.bag__payment {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    margin-left: 5%;
+    margin-top: 20px;
+    max-width: 40%;
+    justify-content: flex-end;
+}
+
+.bag__subtotal--price {
+    padding: 20px;
+}
+
+
+/* ==========================================================================
+   MEDIA QUERY
+   ========================================================================== */
+@media only screen and (max-width: 600px) {
+    .bag__information {
+        max-width: 50%;
+    }
+
+    .bag__payment {
+        margin-left: 15%;
+    }
+
+    .bag__item {
+        border-bottom: 0.2px solid black
+    }
+}

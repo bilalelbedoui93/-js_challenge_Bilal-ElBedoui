@@ -99,6 +99,17 @@ main {
     background-color: #444A59;
 }
 
+.button--secondary {
+    padding: 13px;
+    font-family: 'Lato-Bold', sans-serif;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 1.39px;
+    border: 1px solid #444A59;
+    color: #ffffff;
+    background-color: #444A59;
+}
+
 .button--wishlist:hover {
     border: 1px solid #444A59;
 }
@@ -240,5 +251,10 @@ main {
     }
     .product-list__item {
         max-width: 100%;
+    }
+
+    .button--primary:hover {
+        background-color: #ffffff;
+        color: black
     }
 }

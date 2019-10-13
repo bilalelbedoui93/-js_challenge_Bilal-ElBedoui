@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Router, Route, Switch, Redirect } from 'react-router-dom'
+import { Route, Switch, withRouter } from 'react-router-dom'
 import logic from '../../logic'
 
 import './index.scss'
@@ -7,16 +7,26 @@ import './index.scss'
 import Home from '../pages/Home'
 import Nav from '../shared/Nav'
 import Footer from '../shared/Footer'
+import Bag from '../pages/Bag'
 
 const App = () => {
 
     const [posts, setPosts] = useState([])
     const [loading, setLoading] = useState(false)
     const [currentPage, setCurrentPage] = useState(1)
-    const [postsPerPage, setPostPerPage] = useState(6)
+    const [postsPerPage] = useState(6)
+    const [totalPrice, setTotalPrice] = useState(0)
+    const [numberItems, setNumberItems] = useState(0)
+
+    //Get current posts, pagination
+    const indexOfLastPost = currentPage * postsPerPage
+    const indexOfFirstPost = indexOfLastPost - postsPerPage
+    const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost)
+
 
     useEffect(function () {
         fetchPosts()
+        totalPriceAndElementsQuantity(JSON.parse(localStorage.getItem('bag')))
     }, [])
 
     const fetchPosts = async () => {
@@ -29,14 +39,14 @@ const App = () => {
         }
     }
 
+    const totalPriceAndElementsQuantity = (products) => {
+        const { suma, numberItems } = logic.totalPriceAndElementsQuantity(products)
+
+        setTotalPrice(suma)
+        setNumberItems(numberItems)
+    }
+
     const paginate = pageNumber => setCurrentPage(pageNumber)
-
-
-    //Get current posts
-
-    const indexOfLastPost = currentPage * postsPerPage
-    const indexOfFirstPost = indexOfLastPost - postsPerPage
-    const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost)
 
 
     return (
@@ -44,16 +54,36 @@ const App = () => {
 
             {console.log('rendering <App>...')}
 
-            <Nav />
-
-            <Home
-                products={currentPosts}
-                loading={loading}
-                postsPerPage={postsPerPage}
-                totalPosts={posts.length}
-                paginate={paginate}
-                currentPage={currentPage}
+            <Nav
+                totalPrice={totalPrice}
+                numberItems={numberItems}
             />
+
+            <Switch>
+
+                <Route exact path={'/'} render={() =>
+                    <Home
+                        products={currentPosts}
+                        loading={loading}
+                        postsPerPage={postsPerPage}
+                        totalPosts={posts.length}
+                        paginate={paginate}
+                        currentPage={currentPage}
+                        funTotalPrice={setTotalPrice}
+                        funNumberItems={setNumberItems}
+                    />}
+                />
+
+                <Route path={'/bag'} render={() =>
+                    <Bag
+                        productsInBag={JSON.parse(localStorage.getItem('bag'))}
+                        totalPrice={totalPrice}
+                        funTotalPrice={setTotalPrice}
+                        funNumberItems={setNumberItems}
+                    />}
+                />
+
+            </Switch>
 
             <Footer />
 
@@ -63,4 +93,4 @@ const App = () => {
 
 
 }
-export default App;
+export default withRouter(App)

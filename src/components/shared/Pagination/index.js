@@ -11,7 +11,6 @@ const Pagination = ({ postsPerPage, totalPosts, paginate, currentPage }) => {
         pageNumbers.push(i)
     }
 
-    console.log('pageNumbers', pageNumbers)
     return (
         <nav className="pagination">
             <ul className="pagination__list">
