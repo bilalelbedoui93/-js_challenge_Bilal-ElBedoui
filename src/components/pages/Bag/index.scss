@@ -62,9 +62,9 @@
 }
 
 .bag__subtotal--price {
+
     padding: 20px;
 }
-
 
 /* ==========================================================================
    MEDIA QUERY
@@ -76,9 +76,14 @@
 
     .bag__payment {
         margin-left: 15%;
+        max-width: 100%;
+        justify-content: space-between;
     }
 
     .bag__item {
         border-bottom: 0.2px solid black
+    }
+    .bag__subtotal--price {
+        padding: 0px;
     }
 }

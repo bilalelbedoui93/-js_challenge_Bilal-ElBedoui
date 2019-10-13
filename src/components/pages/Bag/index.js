@@ -8,14 +8,14 @@ import logic from '../../../logic'
 import './index.scss'
 
 
-const Bag = ({ productsInBag, totalPrice, funTotalPrice, funNumberItems }) => {
+const Bag = ({ productsInBag, totalPrice, funTotalPrice, funNumberItemsBag }) => {
 
     const handleRemoveFromBag = (id) => {
         const { message, suma, numberItems } = logic.removeFromCard(id)
-        if (message === 'removed from card') {
+        if (message === 'removed from cart') {
             
             funTotalPrice(suma)
-            funNumberItems(numberItems)
+            funNumberItemsBag(numberItems)
         }
         }
 

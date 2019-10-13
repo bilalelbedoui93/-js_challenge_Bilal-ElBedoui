@@ -118,6 +118,10 @@ main {
     fill: #444A59;
 }
 
+.button--inwishlist > .icon {
+    fill: #444A59;
+}
+
 .button--in-cart {
     pointer-events: none;
     background-color: #d9d9d9;
@@ -256,5 +260,9 @@ main {
     .button--primary:hover {
         background-color: #ffffff;
         color: black
+    }
+
+    .button--wishlist:hover > .icon {
+        fill: #d9d9d9;
     }
 }

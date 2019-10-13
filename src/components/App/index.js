@@ -16,7 +16,8 @@ const App = () => {
     const [currentPage, setCurrentPage] = useState(1)
     const [postsPerPage] = useState(6)
     const [totalPrice, setTotalPrice] = useState(0)
-    const [numberItems, setNumberItems] = useState(0)
+    const [numberItemsBag, setNumberItemsBag] = useState(0)
+    const [numberItemsWishlist, setNumberItemsWishlist] = useState(0)
 
     //Get current posts, pagination
     const indexOfLastPost = currentPage * postsPerPage
@@ -26,7 +27,8 @@ const App = () => {
 
     useEffect(function () {
         fetchPosts()
-        totalPriceAndElementsQuantity(JSON.parse(localStorage.getItem('bag')))
+        totalPriceAndElementsQuantity()
+        totalElementsWishlist()
     }, [])
 
     const fetchPosts = async () => {
@@ -39,11 +41,18 @@ const App = () => {
         }
     }
 
-    const totalPriceAndElementsQuantity = (products) => {
+    const totalPriceAndElementsQuantity = () => {
+        const products = JSON.parse(localStorage.getItem('bag'))
         const { suma, numberItems } = logic.totalPriceAndElementsQuantity(products)
 
         setTotalPrice(suma)
-        setNumberItems(numberItems)
+        setNumberItemsBag(numberItems)
+    }
+
+    const totalElementsWishlist = () =>{
+        let result = JSON.parse(localStorage.getItem('wishlist'))
+        if(result==null) result = []
+        setNumberItemsWishlist(result.length)
     }
 
     const paginate = pageNumber => setCurrentPage(pageNumber)
@@ -56,7 +65,8 @@ const App = () => {
 
             <Nav
                 totalPrice={totalPrice}
-                numberItems={numberItems}
+                numberItemsBag={numberItemsBag}
+                numberItemsWishlist={numberItemsWishlist}
             />
 
             <Switch>
@@ -70,7 +80,8 @@ const App = () => {
                         paginate={paginate}
                         currentPage={currentPage}
                         funTotalPrice={setTotalPrice}
-                        funNumberItems={setNumberItems}
+                        funNumberItemsBag={setNumberItemsBag}
+                        funNumberItemsWishlist={setNumberItemsWishlist}
                     />}
                 />
 
@@ -79,7 +90,7 @@ const App = () => {
                         productsInBag={JSON.parse(localStorage.getItem('bag'))}
                         totalPrice={totalPrice}
                         funTotalPrice={setTotalPrice}
-                        funNumberItems={setNumberItems}
+                        funNumberItemsBag={setNumberItemsBag}
                     />}
                 />
 
