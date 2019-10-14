@@ -1,7 +1,12 @@
 import api from '../API'
 
 const logic = {
-
+    /**
+     * Returns all the entries provided by the API
+     * 
+     * 
+     * @returns {Array} posts 
+     */
     retrieveAllProducts() {
 
         return (async () => {
@@ -19,6 +24,15 @@ const logic = {
 
     },
 
+    /**
+     * It adds the item to the cart, it stores it in localStorage memory
+     * 
+     * 
+     * @param {Object} item 
+     * 
+     * @returns {Object} contains 3 variables, the confirmation that the item has been added, the bag total of the price a number of item in the bag
+     * 
+     */
     addToCart(item) {
         let bag_deserialized = JSON.parse(localStorage.getItem('bag'))
 
@@ -32,6 +46,16 @@ const logic = {
 
         return { message: 'added to cart', suma, numberItems }
     },
+
+    /**
+    * It removes the item from the cart
+    * 
+    * 
+    * @param {String} id 
+    * 
+    * @returns {Object} contains 3 variables, the confirmation that the item has been removed, the bag total of the price a number of item in the bag
+    * 
+    */
 
     removeFromCard(id) {
 
@@ -50,6 +74,16 @@ const logic = {
         return { message: 'removed from cart', suma, numberItems }
     },
 
+    /**
+    * It returns the bag total price and the amount of items in the bag
+    * 
+    * 
+    * @param {Array} products 
+    * 
+    * @returns {Object} total price and amount of items in the bag
+    * 
+    */
+
     totalPriceAndElementsQuantity(products) {
         let priceProduct = 0
         let suma = 0
@@ -67,6 +101,16 @@ const logic = {
         return { suma, numberItems: products.length }
     },
 
+    /**
+    * It adds the item to the wishlist
+    * 
+    * 
+    * @param {String} id 
+    * 
+    * @returns {Object} the confirmation that the object has been added to the wishlist and amount of item in the wishlist
+    * 
+    */
+
     addToWishlist(id) {
         let wishlist_deserialized = JSON.parse(localStorage.getItem('wishlist'))
 
@@ -79,6 +123,15 @@ const logic = {
         return { message: 'added to wishlist', numberItemsWishlist: wishlist_deserialized.length }
     },
 
+    /**
+    * It removed the item from the wishlist
+    * 
+    * 
+    * @param {String} id 
+    * 
+    * @returns {Object} the confirmation that the object has been removed from the wishlist and amount of item in the wishlist
+    * 
+    */
     removeFromWishlist(id) {
         let wishlist_deserialized = JSON.parse(localStorage.getItem('wishlist'))
 
