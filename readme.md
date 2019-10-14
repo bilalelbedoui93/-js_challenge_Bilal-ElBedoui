@@ -1,7 +1,7 @@
 # Live Code Walkthrough - (Webpack + React + testing)
 to build a simple e-commerce application
 
-[Demo APP](http://medyes.surge.sh)
+[Demo APP](http://musement-online-shop.surge.sh)
 
 
 ## Getting started
